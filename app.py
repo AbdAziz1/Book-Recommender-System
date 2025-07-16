@@ -2,12 +2,36 @@ import streamlit as st
 import pickle
 import numpy as np
 import pandas as pd
+import os
+import zipfile
+
+
+MODEL_DIR = os.path.join(os.path.dirname(__file__), "model")
+ZIP_PATH = os.path.join(os.path.dirname(__file__), "model.zip")
+
+# Automatically extract zip if the folder doesn't exist,
+if not os.path.exists(MODEL_DIR):
+    with zipfile.ZipFile(ZIP_PATH, "r") as zip_ref:
+        zip_ref.extractall(MODEL_DIR)
+
+with open(os.path.join(MODEL_DIR, "popular.pkl"), "rb") as f:
+    popular_df = pickle.load(f)
+
+with open(os.path.join(MODEL_DIR, "pt.pkl"), "rb") as f:
+    pt = pickle.load(f)
+
+with open(os.path.join(MODEL_DIR, "books.pkl"), "rb") as f:
+    books = pickle.load(f)
+
+with open(os.path.join(MODEL_DIR, "similarity_scores.pkl"), "rb") as f:
+    similarity_scores = pickle.load(f)
+
 
 # Load pre-trained data
-popular_df = pickle.load(open(r'E:\My Work\DataScience Projects\Book Recommender System\model\popular.pkl', 'rb'))
-pt = pickle.load(open(r'E:\My Work\DataScience Projects\Book Recommender System\model\pt.pkl', 'rb'))
-books = pickle.load(open(r'E:\My Work\DataScience Projects\Book Recommender System\model\books.pkl', 'rb'))
-similarity_scores = pickle.load(open(r'E:\My Work\DataScience Projects\Book Recommender System\model\similarity_scores.pkl', 'rb'))
+#popular_df = pickle.load(open(r'E:\My Work\DataScience Projects\Book Recommender System\model\popular.pkl', 'rb'))
+#pt = pickle.load(open(r'E:\My Work\DataScience Projects\Book Recommender System\model\pt.pkl', 'rb'))
+#books = pickle.load(open(r'E:\My Work\DataScience Projects\Book Recommender System\model\books.pkl', 'rb'))
+#similarity_scores = pickle.load(open(r'E:\My Work\DataScience Projects\Book Recommender System\model\similarity_scores.pkl', 'rb'))
 
 # Title and header
 st.title("📚 Book Recommender System")
