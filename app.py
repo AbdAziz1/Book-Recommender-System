@@ -5,9 +5,12 @@ import pandas as pd
 import os
 import zipfile
 
-MODEL_DIR = os.path.join(os.path.dirname(__file__), "model")
-ZIP_PATH = os.path.join(os.path.dirname(__file__), "model.zip")
+# Paths
+BASE_DIR = os.path.dirname(__file__)
+MODEL_DIR = os.path.join(BASE_DIR, "model")
+ZIP_PATH = os.path.join(BASE_DIR, "model.zip")
 
+# Extract if model folder doesn't exist
 if not os.path.exists(MODEL_DIR):
     os.makedirs(MODEL_DIR, exist_ok=True)
     with zipfile.ZipFile(ZIP_PATH, "r") as zip_ref:
