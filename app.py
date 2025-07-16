@@ -5,14 +5,13 @@ import pandas as pd
 import os
 import zipfile
 
-
 MODEL_DIR = os.path.join(os.path.dirname(__file__), "model")
 ZIP_PATH = os.path.join(os.path.dirname(__file__), "model.zip")
 
-# Automatically extract zip if the folder doesn't exist,
 if not os.path.exists(MODEL_DIR):
     with zipfile.ZipFile(ZIP_PATH, "r") as zip_ref:
-        zip_ref.extractall(MODEL_DIR)
+        zip_ref.extractall(os.path.dirname(__file__))
+
 
 with open(os.path.join(MODEL_DIR, "popular.pkl"), "rb") as f:
     popular_df = pickle.load(f)
